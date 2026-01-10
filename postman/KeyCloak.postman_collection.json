@@ -1,0 +1,1800 @@
+{
+	"info": {
+		"_postman_id": "da639ba4-b046-4fb2-83e6-e19d4ddc1b3c",
+		"name": "KeyCloak",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30843875"
+	},
+	"item": [
+		{
+			"name": "Access Token",
+			"item": [
+				{
+					"name": "Password- Get User Access Token for User for a public client ( no secret)",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "admin-cli",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "myuser",
+									"description": "a]",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "myuser",
+									"type": "text"
+								},
+								{
+									"key": "scope",
+									"value": "openid",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/realms/{{realm_name}}/protocol/openid-connect/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"realms",
+								"{{realm_name}}",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Admin Access Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();",
+									"pm.collectionVariables.set(\"admin_access_token\", response.access_token);",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "admin-cli",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"description": "a]",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/realms/master/protocol/openid-connect/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"realms",
+								"master",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cleint credentials - Get Access Token for client",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "client_id",
+									"value": "myclient",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "OkWJJAEvGuJkgghv5fbzlfWzG556vTAK",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/realms/{{realm_name}}/protocol/openid-connect/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"realms",
+								"{{realm_name}}",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Password- Get User Access Token for User for a confidential client ( with secret)",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "myclient",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "myuser",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "myuser",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "OkWJJAEvGuJkgghv5fbzlfWzG556vTAK",
+									"type": "text"
+								},
+								{
+									"key": "scope",
+									"value": "openid",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/realms/{{realm_name}}/protocol/openid-connect/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"realms",
+								"{{realm_name}}",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Clients",
+			"item": [
+				{
+					"name": "Get Clients",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "http://localhost:8080/admin/realms/{{realm_name}}/clients",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"realms",
+								"{{realm_name}}",
+								"clients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Client",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const rand = Math.floor(Math.random() * 1000);",
+									"pm.collectionVariables.set(\"client_randomNumber\", rand);"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const location = pm.response.headers.get(\"Location\");",
+									"",
+									"// split the URL by '/' and take the last part",
+									"const clientId = location.split(\"/\").pop();",
+									"",
+									"// save it (choose the scope you want)",
+									"pm.collectionVariables.set(\"client_id\", clientId);",
+									"",
+									"// optional: log to console to verify",
+									"console.log(\"Extracted client ID:\", clientId);"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\n        \"clientId\": \"client_{{client_randomNumber}}\",\n        \"name\": \"client_{{client_randomNumber}}\",\n        \"adminUrl\": \"http://localhost:4200\",\n        \"alwaysDisplayInConsole\": false,\n        \"access\": {\n            \"view\": true,\n            \"configure\": true,\n            \"manage\": true\n        },\n        \"attributes\": {},\n        \"authenticationFlowBindingOverrides\" : {},\n        \"authorizationServicesEnabled\": false,\n        \"bearerOnly\": false,\n        \"directAccessGrantsEnabled\": true,\n        \"enabled\": true,\n        \"protocol\": \"openid-connect\",\n        \"description\": \"rest-api\",\n\n        \"rootUrl\": \"${authBaseUrl}\",\n        \"baseUrl\": \"/realms/heroes/account/\",\n        \"surrogateAuthRequired\": false,\n        \"clientAuthenticatorType\": \"client-secret\",\n        \"defaultRoles\": [\n            \"manage-account\",\n            \"view-profile\"\n        ],\n        \"redirectUris\": [\n            \"/realms/heroes/account/*\"\n        ],\n        \"webOrigins\": [],\n        \"notBefore\": 0,\n        \"consentRequired\": false,\n        \"standardFlowEnabled\": true,\n        \"implicitFlowEnabled\": false,\n        \"serviceAccountsEnabled\": false,\n        \"publicClient\": false,\n        \"frontchannelLogout\": false,\n        \"fullScopeAllowed\": false,\n        \"nodeReRegistrationTimeout\": 0,\n        \"defaultClientScopes\": [\n            \"web-origins\",\n            \"role_list\",\n            \"profile\",\n            \"roles\",\n            \"email\"\n        ],\n        \"optionalClientScopes\": [\n            \"address\",\n            \"phone\",\n            \"offline_access\",\n            \"microprofile-jwt\"\n        ]\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/admin/realms/{{realm_name}}/clients",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"realms",
+								"{{realm_name}}",
+								"clients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "redundant-Generate Client Secret",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/admin/realms/{{realm_name}}/clients/{{client_id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"realms",
+								"{{realm_name}}",
+								"clients",
+								"{{client_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Client Secret",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"",
+									"const response = pm.response.json();",
+									"pm.collectionVariables.set(\"client_secret\", response.value);",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/admin/realms/{{realm_name}}/clients/{{client_id}}/client-secret",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"realms",
+								"{{realm_name}}",
+								"clients",
+								"{{client_id}}",
+								"client-secret"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Get Users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/admin/realms/{{realm_name}}/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"realms",
+								"{{realm_name}}",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const rand = Math.floor(Math.random() * 1000);",
+									"pm.collectionVariables.set(\"user_randomNumber\", rand);"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const location = pm.response.headers.get(\"Location\");",
+									"",
+									"// split the URL by '/' and take the last part",
+									"const userId = location.split(\"/\").pop();",
+									"",
+									"// save it (choose the scope you want)",
+									"pm.collectionVariables.set(\"user_id\", userId);",
+									"",
+									"// optional: log to console to verify",
+									"console.log(\"Extracted user ID:\", userId);"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"createdTimestamp\": 1588880747548,\n        \"username\": \"user_{{user_randomNumber}}\",\n        \"enabled\": true,\n        \"totp\": false,\n        \"emailVerified\": true,\n        \"firstName\": \"Stephen\",\n        \"lastName\": \"Strange\",\n        \"email\": \"user_{{user_randomNumber}}@marvel.com\",\n        \"disableableCredentialTypes\": [],\n        \"requiredActions\": [],\n        \"notBefore\": 0,\n        \"access\": {\n            \"manageGroupMembership\": true,\n            \"view\": true,\n            \"mapRoles\": true,\n            \"impersonate\": true,\n            \"manage\": true\n        },\n        \"realmRoles\": [\t\"mb-user\" ]\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/admin/realms/{{realm_name}}/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"realms",
+								"{{realm_name}}",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Setup User Password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"type\":\"password\",\"value\":\"test\",\"temporary\":false}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/admin/realms/{{realm_name}}/users/{{user_id}}/reset-password",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"realms",
+								"{{realm_name}}",
+								"users",
+								"{{user_id}}",
+								"reset-password"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User and Client Setup and Log in",
+			"item": [
+				{
+					"name": "Get Admin Access Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();",
+									"pm.collectionVariables.set(\"admin_access_token\", response.access_token);",
+									"",
+									"pm.test(\"Admin acess token retrieved : Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "admin-cli",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"description": "a]",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/realms/master/protocol/openid-connect/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"realms",
+								"master",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const rand = Math.floor(Math.random() * 1000);",
+									"pm.collectionVariables.set(\"user_randomNumber\", rand);"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const location = pm.response.headers.get(\"Location\");",
+									"",
+									"// split the URL by '/' and take the last part",
+									"const userId = location.split(\"/\").pop();",
+									"",
+									"// save it (choose the scope you want)",
+									"pm.collectionVariables.set(\"user_id\", userId);",
+									"",
+									"// optional: log to console to verify",
+									"console.log(\"Extracted user ID:\", userId);",
+									"",
+									"pm.test(\"User Created : Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"createdTimestamp\": 1588880747548,\n        \"username\": \"User_{{user_randomNumber}}\",\n        \"enabled\": true,\n        \"totp\": false,\n        \"emailVerified\": true,\n        \"firstName\": \"Stephen\",\n        \"lastName\": \"Strange\",\n        \"email\": \"user_{{user_randomNumber}}@marvel.com\",\n        \"disableableCredentialTypes\": [],\n        \"requiredActions\": [],\n        \"notBefore\": 0,\n        \"access\": {\n            \"manageGroupMembership\": true,\n            \"view\": true,\n            \"mapRoles\": true,\n            \"impersonate\": true,\n            \"manage\": true\n        },\n        \"realmRoles\": [\t\"mb-user\" ]\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/admin/realms/{{realm_name}}/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"realms",
+								"{{realm_name}}",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Setup User Password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"User password generated : Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"type\":\"password\",\"value\":\"test\",\"temporary\":false}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/admin/realms/{{realm_name}}/users/{{user_id}}/reset-password",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"realms",
+								"{{realm_name}}",
+								"users",
+								"{{user_id}}",
+								"reset-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Client",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const rand = Math.floor(Math.random() * 1000);",
+									"pm.collectionVariables.set(\"client_randomNumber\", rand);",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const location = pm.response.headers.get(\"Location\");",
+									"",
+									"// split the URL by '/' and take the last part",
+									"const clientId = location.split(\"/\").pop();",
+									"",
+									"// save it (choose the scope you want)",
+									"pm.collectionVariables.set(\"client_id\", clientId);",
+									"",
+									"// optional: log to console to verify",
+									"console.log(\"Extracted client ID:\", clientId);",
+									"",
+									"pm.test(\"Client Created : Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\n        \"clientId\": \"client_{{client_randomNumber}}\",\n        \"name\": \"client_{{client_randomNumber}}\",\n        \"adminUrl\": \"http://localhost:4200\",\n        \"alwaysDisplayInConsole\": false,\n        \"access\": {\n            \"view\": true,\n            \"configure\": true,\n            \"manage\": true\n        },\n        \"attributes\": {},\n        \"authenticationFlowBindingOverrides\" : {},\n        \"authorizationServicesEnabled\": false,\n        \"bearerOnly\": false,\n        \"directAccessGrantsEnabled\": true,\n        \"enabled\": true,\n        \"protocol\": \"openid-connect\",\n        \"description\": \"rest-api\",\n\n        \"rootUrl\": \"${authBaseUrl}\",\n        \"baseUrl\": \"/realms/heroes/account/\",\n        \"surrogateAuthRequired\": false,\n        \"clientAuthenticatorType\": \"client-secret\",\n        \"defaultRoles\": [\n            \"manage-account\",\n            \"view-profile\"\n        ],\n        \"redirectUris\": [\n            \"/realms/heroes/account/*\"\n        ],\n        \"webOrigins\": [],\n        \"notBefore\": 0,\n        \"consentRequired\": false,\n        \"standardFlowEnabled\": true,\n        \"implicitFlowEnabled\": false,\n        \"serviceAccountsEnabled\": false,\n        \"publicClient\": false,\n        \"frontchannelLogout\": false,\n        \"fullScopeAllowed\": false,\n        \"nodeReRegistrationTimeout\": 0,\n        \"defaultClientScopes\": [\n            \"web-origins\",\n            \"role_list\",\n            \"profile\",\n            \"roles\",\n            \"email\"\n        ],\n        \"optionalClientScopes\": [\n            \"address\",\n            \"phone\",\n            \"offline_access\",\n            \"microprofile-jwt\"\n        ]\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/admin/realms/{{realm_name}}/clients",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"realms",
+								"{{realm_name}}",
+								"clients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Client Secret",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"",
+									"const response = pm.response.json();",
+									"pm.collectionVariables.set(\"client_secret\", response.value);",
+									"",
+									"",
+									"pm.test(\"Client secret retrieved : Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/admin/realms/{{realm_name}}/clients/{{client_id}}/client-secret",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"realms",
+								"{{realm_name}}",
+								"clients",
+								"{{client_id}}",
+								"client-secret"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Log in User to Client",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"User logged into client : Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"const response = pm.response.json();",
+									"pm.collectionVariables.set(\"user_access_token\", response.access_token);",
+									"",
+									"pm.collectionVariables.set(\"user_refresh_token\", response.refresh_token);",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "client_{{client_randomNumber}}",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "{{client_secret}}",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "user_{{user_randomNumber}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "scope",
+									"value": "openid",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/realms/{{realm_name}}/protocol/openid-connect/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"realms",
+								"{{realm_name}}",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Token Life Cycle",
+			"item": [
+				{
+					"name": "Refresh Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();",
+									"const oldToken = pm.variables.get(\"user_access_token\");",
+									"const newToken = response.access_token;",
+									"",
+									"pm.test(\"Token refreshed\", () => {",
+									"    pm.expect(pm.response.code).to.eql(200);",
+									"});",
+									"",
+									"//New acccess token exists",
+									"pm.test(\"New access token issued\",()=> {",
+									"    pm.expect(newToken).to.exist;",
+									"});",
+									"",
+									"//New token is ddferent from old oldToken",
+									"pm.test(\"New token is different from old one\",()=> {",
+									"    pm.expect(newToken).to.not.eql(oldToken);",
+									"});",
+									"",
+									"pm.collectionVariables.set(\"user_access_token\", newToken);",
+									"pm.collectionVariables.set(\"user_refresh_token\", response.refresh_token);",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "refresh_token",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "client_{{client_randomNumber}}",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "{{client_secret}}",
+									"type": "text"
+								},
+								{
+									"key": "refresh_token",
+									"value": "{{user_refresh_token}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/realms/{{realm_name}}/protocol/openid-connect/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"realms",
+								"{{realm_name}}",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Token Introspection",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();",
+									"const now = Math.floor(Date.now() / 1000);",
+									"",
+									"//Status code",
+									"pm.test(\"Status code is 200\",  ()=> {",
+									"    pm.expect(pm.response.code).to.eql(200);",
+									"});",
+									"",
+									"//Token is active",
+									"pm.test(\"Token is active\",()=>{",
+									"    pm.expect(response.active).to.eql(true);",
+									"});",
+									"",
+									"//Token has exp claim",
+									"pm.test(\"Token has expiration claim\", () => {",
+									"    pm.expect(response.exp).to.be.a(\"number\");",
+									"});",
+									"",
+									"//Token is not expired  ",
+									"pm.test(\"Token is not expired\", ()=> {",
+									"    pm.expect(response.exp).to.be.greaterThan(now);",
+									"});",
+									"",
+									"//Token has a cope",
+									"pm.test(\"Token has scope\",() =>{",
+									"    pm.expect(response.scope).to.include(\"openid\")",
+									"});",
+									"",
+									"console.log(\"Running Request 2\");"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "token",
+									"value": "{{user_access_token}}",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "client_{{client_randomNumber}}",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "{{client_secret}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/realms/{{realm_name}}/protocol/openid-connect/token/introspect",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"realms",
+								"{{realm_name}}",
+								"protocol",
+								"openid-connect",
+								"token",
+								"introspect"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User Logout",
+			"item": [
+				{
+					"name": "Log out User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Logout request succeeded\", () => {",
+									"  pm.expect(pm.response.code).to.be.oneOf([200, 204]);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"packages": {},
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "http://localhost:8080/admin/realms/{{realm_name}}/users/{{user_id}}/logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"realms",
+								"{{realm_name}}",
+								"users",
+								"{{user_id}}",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();",
+									"const oldToken = pm.variables.get(\"user_access_token\");",
+									"const newToken = response.access_token;",
+									"",
+									"pm.test(\"Token refreshed\", () => {",
+									"    pm.expect(pm.response.code).to.eql(200);",
+									"});",
+									"",
+									"//New acccess token exists",
+									"pm.test(\"New access token issued\",()=> {",
+									"    pm.expect(newToken).to.exist;",
+									"});",
+									"",
+									"//New token is ddferent from old oldToken",
+									"pm.test(\"New token is different from old one\",()=> {",
+									"    pm.expect(newToken).to.not.eql(oldToken);",
+									"});",
+									"",
+									"pm.collectionVariables.set(\"user_access_token\", newToken);",
+									"pm.collectionVariables.set(\"user_refresh_token\", response.refresh_token);",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "refresh_token",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "client_{{client_randomNumber}}",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "{{client_secret}}",
+									"type": "text"
+								},
+								{
+									"key": "refresh_token",
+									"value": "{{user_refresh_token}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/realms/{{realm_name}}/protocol/openid-connect/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"realms",
+								"{{realm_name}}",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Revoke Token",
+			"item": [
+				{
+					"name": "Revoke Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Revocation accepted\", ()=>{",
+									"    pm.expect(pm.response.code).to.be.oneOf([200,204]);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "client_id",
+									"value": "client_{{client_randomNumber}}",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "{{client_secret}}",
+									"type": "text"
+								},
+								{
+									"key": "token",
+									"value": "{{user_refresh_token}}",
+									"type": "text"
+								},
+								{
+									"key": "token_type_hint",
+									"value": "refredsh_token",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/realms/{{realm_name}}/protocol/openid-connect/revoke",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"realms",
+								"{{realm_name}}",
+								"protocol",
+								"openid-connect",
+								"revoke"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();",
+									"const oldToken = pm.variables.get(\"user_access_token\");",
+									"const newToken = response.access_token;",
+									"",
+									"pm.test(\"Token refreshed\", () => {",
+									"    pm.expect(pm.response.code).to.eql(200);",
+									"});",
+									"",
+									"//New acccess token exists",
+									"pm.test(\"New access token issued\",()=> {",
+									"    pm.expect(newToken).to.exist;",
+									"});",
+									"",
+									"//New token is ddferent from old oldToken",
+									"pm.test(\"New token is different from old one\",()=> {",
+									"    pm.expect(newToken).to.not.eql(oldToken);",
+									"});",
+									"",
+									"pm.collectionVariables.set(\"user_access_token\", newToken);",
+									"pm.collectionVariables.set(\"user_refresh_token\", response.refresh_token);",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "refresh_token",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "client_{{client_randomNumber}}",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "{{client_secret}}",
+									"type": "text"
+								},
+								{
+									"key": "refresh_token",
+									"value": "{{user_refresh_token}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/realms/{{realm_name}}/protocol/openid-connect/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"realms",
+								"{{realm_name}}",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "admin_access_token",
+			"value": ""
+		},
+		{
+			"key": "user_randomNumber",
+			"value": ""
+		},
+		{
+			"key": "client_randomNumber",
+			"value": ""
+		},
+		{
+			"key": "user_id",
+			"value": ""
+		},
+		{
+			"key": "client_id",
+			"value": ""
+		},
+		{
+			"key": "realm_name",
+			"value": ""
+		},
+		{
+			"key": "client_secret",
+			"value": ""
+		},
+		{
+			"key": "user_access_token",
+			"value": ""
+		},
+		{
+			"key": "user_refresh_token",
+			"value": ""
+		}
+	]
+}
