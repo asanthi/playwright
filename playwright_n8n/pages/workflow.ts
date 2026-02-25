@@ -18,7 +18,7 @@ export class WorkflowPage {
     this.addNodeToIfNode = page.locator('.canvas-node-handle-main-output')
 
   }
-
+//Add the very first step
   async addFirstStep(): Promise<void> {
     await this.addFirstStepButton.click();
   }
