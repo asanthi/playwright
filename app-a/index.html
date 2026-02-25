@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/keycloak-js@latest/dist/keycloak.min.js"></script>
+</head>
+<body>
+  <h1>App A</h1>
+  <div id="status">Loading...</div>
+
+  <script>
+    const keycloak = new Keycloak({
+      url: "http://localhost:8080",
+      realm: "master",
+      clientId: "app-a"
+    });
+
+    keycloak.init({ onLoad: "login-required" }).then(authenticated => {
+      document.getElementById("status").innerText =
+        authenticated ? "Logged in" : "Not logged in";
+    });
+  </script>
+</body>
+</html>
