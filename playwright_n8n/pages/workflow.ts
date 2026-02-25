@@ -28,6 +28,7 @@ export class WorkflowPage {
     await this.addNodeButton.click();
   }
 
+  //Add thrid node
   async addNodeToIf(nodeOption: string): Promise<void> {
     await this.addNodeToIfNode.filter({ hasText: nodeOption }).locator('[data-test-id="canvas-handle-plus"]').click();
   }
